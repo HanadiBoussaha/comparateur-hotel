@@ -367,7 +367,24 @@ for th in themes:
 table_df = pd.DataFrame(table_rows)
 
 
-st.dataframe(table_df, use_container_width=True, hide_index=True)
+def color_sent(v):
+    # Couleur selon le premier emoji (le sentiment de la cellule)
+    if isinstance(v, str):
+        if v.startswith("🟢"):
+            return "background-color: #d9f2e3"
+        if v.startswith("🔴"):
+            return "background-color: #fbdcdc"
+        if v.startswith("⚪"):
+            return "background-color: #eeeeee"
+    return ""
+
+
+try:
+    styled_table = table_df.style.map(color_sent)
+except AttributeError:
+    styled_table = table_df.style.applymap(color_sent)
+
+st.dataframe(styled_table, use_container_width=True, hide_index=True)
 
 # ============================================================
 # GRAPHIQUE DES SCORES PAR THÈME
@@ -418,8 +435,19 @@ occ_view = occ.rename(columns={
 })[["Thème", "Sentiment", "Score", "Avis", "Phrase(s) analysée(s)"]]
 
 
+def color_row(row):
+    s = row["Sentiment"]
+    if s.startswith("🟢"):
+        c = "background-color: #d9f2e3"
+    elif s.startswith("🔴"):
+        c = "background-color: #fbdcdc"
+    else:
+        c = "background-color: #eeeeee"
+    return [c] * len(row)
+
+
 st.dataframe(
-    occ_view,
+    occ_view.style.apply(color_row, axis=1),
     use_container_width=True,
     hide_index=True
 )
