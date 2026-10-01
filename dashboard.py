@@ -27,7 +27,7 @@ st.markdown(
         font-size: 36px; font-weight: 800; margin-bottom: 4px;
         background: linear-gradient(90deg, #1a56db, #0e9f6e);
         -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        
     }
     .subtitle { font-size: 17px; color: #666; margin-bottom: 20px; }
     .section-title {
