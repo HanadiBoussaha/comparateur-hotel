@@ -51,7 +51,7 @@ st.markdown(
 )
 st.markdown(
     '<div class="subtitle">Analyse automatique des avis clients par thème '
-    'et sentiment — avec recommandation personnalisée</div>',
+    'et sentiment</div>',
     unsafe_allow_html=True
 )
 
